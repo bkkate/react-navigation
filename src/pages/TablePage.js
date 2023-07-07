@@ -1,4 +1,5 @@
-import Table from "../components/Table";
+// import Table from "../components/Table";
+import SortableTable from "../components/SortableTable";
 
 function TablePage() {
   const data = [
@@ -8,10 +9,24 @@ function TablePage() {
     { name: "Lime", color: "bg-green-500", score: 4 },
   ];
 
+  // header: optional function to decide what to show here
+  // sortValue: optional function to describe how to extract values for sorting when the column is clikced
+  // label & render are required
   const config = [
-    { label: "Name", render: (fruit) => fruit.name },
-    { label: "Color", render: (fruit) => <div className={`p-3 m-2 ${fruit.color}`}></div>},
-    { label: "Score", render: (fruit) => fruit.score },
+    {
+      label: "Name",
+      render: (fruit) => fruit.name,
+      sortValue: (fruit) => fruit.name,
+    },
+    {
+      label: "Color",
+      render: (fruit) => <div className={`p-3 m-2 ${fruit.color}`}></div>,
+    },
+    {
+      label: "Score",
+      render: (fruit) => fruit.score,
+      sortValue: (fruit) => fruit.score
+    },
   ];
 
   // function to get the key to use for individual row in the table
@@ -21,7 +36,7 @@ function TablePage() {
 
   return (
     <div>
-      <Table data={data} config={config} keyFn={keyFn}/>
+      <SortableTable data={data} config={config} keyFn={keyFn} />
     </div>
   );
 }
